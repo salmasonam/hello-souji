@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<center>
+	<form action="Course.jsp" method="post">
+		Course ID :: <input type="text" name="courseId"/><br/>
+		Course Name :: <input type="text" name="courseName" /> <br/>
+		<input type="submit" value="Submit"/>
+	</form>
+	</center>
+</body>
+</html>
+=======================================================
+<%@ page import="com.ts.Course" language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<jsp:useBean id="courseObj" class="com.ts.Course" scope="request">
+	<jsp:setProperty name="courseObj" property="*"  />	
+</jsp:useBean>
+
+<jsp:forward page="View.jsp" />
+
+<%-- 
+<%
+	String courseId = request.getParameter("courseId");
+	String courseName = request.getParameter("courseName");
+	
+	Course course = new Course();
+	course.setCourseId(courseId);
+	course.setCourseName(courseName);
+	
+	request.setAttribute("courseObj", course);
+	
+	RequestDispatcher rd = request.getRequestDispatcher("View.jsp");
+	rd.forward(request, response);
+%>
+--%>
+
+</body>
+</html>
+
+====================================================
+package com.ts;
+
+public class Course 
+{
+	private String courseId;
+	private String courseName;
+	
+	public Course(){ }
+	
+	public String getCourseId() {
+		return courseId;
+	}
+	public void setCourseId(String courseId) {
+		this.courseId = courseId;
+	}
+	public String getCourseName() {
+		return courseName;
+	}
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
+	}
+
+	@Override
+	public String toString() {
+		return "Course [courseId=" + courseId + ", courseName=" + courseName
+				+ "]";
+	}
+	
+}
+===============================================
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<jsp:useBean id="courseObj" class="com.ts.Course" scope="request" />
+	Course Id :: <jsp:getProperty property="courseId" name="courseObj"/> <br/>
+	Course Name :: <jsp:getProperty property="courseName" name="courseObj"/> <br/>
+</body>
+</html>
+
+
+
+
+
+

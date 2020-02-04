@@ -1,0 +1,149 @@
+<jsp:useBean id="courseObj" class="com.ts.Course" scope="request">
+	<jsp:setProperty name="courseObj" property="courseId" value='<%= request.getParameter("courseId") %>' />
+	<jsp:setProperty name="courseObj" property="courseName" value='<%= request.getParameter("courseName") %>' />
+</jsp:useBean>
+
+<jsp:forward page="View.jsp" />
+
+
+===========================================================
+<jsp:useBean id="courseObj" class="com.ts.Course" scope="request">
+	<jsp:setProperty name="courseObj" property="courseId" param="courseId" />
+	<jsp:setProperty name="courseObj" property="courseName" param="courseName" />
+</jsp:useBean>
+
+<jsp:forward page="View.jsp" />
+
+
+param and value attribute is not required if property name matches the form field names in html page.
+=============================================================
+<jsp:useBean id="courseObj" class="com.ts.Course" scope="request">
+	<jsp:setProperty name="courseObj" property="courseId"  />
+	<jsp:setProperty name="courseObj" property="courseName"  />
+</jsp:useBean>
+
+<jsp:forward page="View.jsp" />
+
+
+==============================================================
+<jsp:useBean id="courseObj" class="com.ts.Course" scope="request">
+	<jsp:setProperty name="courseObj" property="*"  />	
+</jsp:useBean>
+
+<jsp:forward page="View.jsp" />
+
+public class Dog
+{
+	private String name;
+	
+	public void setName(String name)
+	{
+		this.name = name;
+	}	
+	public String getName()
+	{
+		return name;
+	}	
+}
+
+
+class Person
+{
+	private String name;
+	private Dog dog;
+
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+	public String getName()
+	{
+		return name;
+	}
+	public void setDog(Dog dog)
+	{
+		this.dog = dog;
+	}
+	public Dog getDog()
+	{
+		return dog;
+	}	
+}
+
+
+Servlet Code
+========
+
+Dog dog = new Dog();
+dog.setName(request.getParameter("dogName"));
+
+Person person = new Person();
+person.setName(request.getParameter("personName"));
+person.setDog(dog);
+
+request.setAttribute("personObj", person);
+
+RequestDispatcher rd = request.getRequestDispatcher("View.jsp");
+rd.forward(request,response);
+
+
+JSP code
+=====
+
+<jsp:useBean id="personObj" class="com.ts.Person" scope="request"/>
+
+Name Of Person :: <jsp:getProperty name="personObj" property="name" /> <br/>
+Name of Dog :: <jsp:getProperty name="personObj" property="dog" />
+
+Name of Person :: ${personObj.name}
+Name of Dog :: ${personObj.dog.name}
+
+EL Implicit  objects
+============
+pageScope
+requestScope
+applicationScope
+sessionScope
+
+header
+headerValues
+
+param
+paramValues
+
+initParam
+
+cookie
+
+pageContext
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
